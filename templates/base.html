@@ -9,17 +9,22 @@
 </head>
 <body>
     <header>
-        <nav>
-            <ul class="navbar">
-                <li>Home</li>
-                <li>Manufacturers</li>
-                <li>Products</li>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li>Manufacturers (add new)</li>
+                <li>Products (add new)</li>
+                <li>Inventory on hand</li>
+                <li>Out of stock</li>
             </ul>
         </nav>
     </header>
-    <section class="container">
+    <main>
         {% block content %}
         {% endblock %}
-    </section>
+    </main>
+    <footer>
+        © 2022 J. A. Mackenzie (<a href="https://github.com/crabbit-git/">crabbit-git</a>)
+    </footer>
 </body>
 </html>

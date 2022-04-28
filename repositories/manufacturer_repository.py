@@ -12,3 +12,6 @@ def save(manufacturer):
     ]
     manufacturer.id = run_sql(sql, values)[0]['id']
     return manufacturer
+
+def delete_all():
+    run_sql("DELETE FROM manufacturers")

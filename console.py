@@ -17,7 +17,7 @@ manufacturer_repository.save(leopold)
 
 rf108i = Product(
     'REALFORCE R2SA-US4-IV PFU Limited Edition (ivory)',
-    'High-end 108-key keyboard exclusively manufactured by Topre to PFU''s specification. Uses silenced, 45 g capacitive Topre key switches and features configurable Actuation Point Changer. Keycaps have high quality dye-sublimated legends.',
+    'High-end 108-key keyboard exclusively manufactured by Topre to PFU\'s specification. Uses silenced, 45 g capacitive Topre key switches and features configurable Actuation Point Changer. Keycaps have high quality dye-sublimated legends.',
     4,
     180.00,
     216.66,
@@ -27,7 +27,7 @@ product_repository.save(rf108i)
 
 rf108b = Product(
     'REALFORCE R2SA-US4-BK PFU Limited Edition (black)',
-    'High-end 108-key keyboard exclusively manufactured by Topre to PFU''s specification. Uses silenced, 45 g capacitive Topre key switches and features configurable Actuation Point Changer. Keycaps have high quality dye-sublimated legends.',
+    'High-end 108-key keyboard exclusively manufactured by Topre to PFU\'s specification. Uses silenced, 45 g capacitive Topre key switches and features configurable Actuation Point Changer. Keycaps have high quality dye-sublimated legends.',
     4,
     rf108i.cost,
     rf108i.price,
@@ -37,7 +37,7 @@ product_repository.save(rf108b)
 
 rf87i = Product(
     'REALFORCE R2TLSA-US4-IV PFU Limited Edition (ivory)',
-    'High-end 87-key keyboard exclusively manufactured by Topre to PFU''s specification. Uses silenced, 45 g capacitive Topre key switches and features configurable Actuation Point Changer. Keycaps have high quality dye-sublimated legends.',
+    'High-end 87-key keyboard exclusively manufactured by Topre to PFU\'s specification. Uses silenced, 45 g capacitive Topre key switches and features configurable Actuation Point Changer. Keycaps have high quality dye-sublimated legends.',
     8,
     rf108i.cost,
     rf108i.price,
@@ -47,7 +47,7 @@ product_repository.save(rf87i)
 
 rf87b = Product(
     'REALFORCE R2TLSA-US4-BK PFU Limited Edition (black)',
-    'High-end 87-key keyboard exclusively manufactured by Topre to PFU''s specification. Uses silenced, 45 g capacitive Topre key switches and features configurable Actuation Point Changer. Keycaps have high quality dye-sublimated legends.',
+    'High-end 87-key keyboard exclusively manufactured by Topre to PFU\'s specification. Uses silenced, 45 g capacitive Topre key switches and features configurable Actuation Point Changer. Keycaps have high quality dye-sublimated legends.',
     8,
     rf108i.cost,
     rf108i.price,
@@ -174,6 +174,16 @@ hhkbscn = Product(
     pfu
 )
 product_repository.save(hhkbscn)
+
+hhkbsnow = Product(
+    'HHKB Professional Hybrid Type-S Snow Limited Edition PD-KB800YS (pure white, printed keycaps)',
+    'The exclusive Snow model released for the HHKB\'s 25th anniversary is a pure white version of the HYBRID Type-S and includes a limited edition HHKB25 \'FN\' key, making it a unique piece of HHKB history. Only 250 units made available to the EMEA market area.',
+    1,
+    200.00,
+    239.99,
+    pfu
+)
+product_repository.save(hhkbsnow)
 
 leow = Product(
     'Leopold FC660C (white)',

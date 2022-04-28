@@ -1,4 +1,5 @@
 from db.run_sql import run_sql
+from models.manufacturer import Manufacturer
 
 def save(manufacturer):
     sql = """
@@ -15,3 +16,9 @@ def save(manufacturer):
 
 def delete_all():
     run_sql("DELETE FROM manufacturers")
+
+def select_all():
+    return [
+        Manufacturer(record['name'], record['country'], record['id'])
+        for record in run_sql("SELECT * FROM manufacturers")
+    ]

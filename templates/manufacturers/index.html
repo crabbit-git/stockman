@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Manufacturer list</h1>
+    <ul class="big-list">
+        {% for manufacturer in manufacturers %}
+            <div class="list-object"><li>{{ manufacturer.name }} ({{ manufacturer.country }})</li></div>
+        {% endfor %}
+    </ul>
+{% endblock content %}

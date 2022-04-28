@@ -11,8 +11,16 @@ main {
     text-align: center;
 }
 
-.navbar ul {
+ul {
     list-style-type: none;
+    padding: 0;
+}
+
+.list-object {
+    margin: 2%;
+}
+
+.navbar ul {
     display: flex;
     justify-content: space-around;
     padding: 0;

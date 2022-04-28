@@ -1,4 +1,6 @@
 from db.run_sql import run_sql
+from models.product import Product
+from repositories import manufacturer_repository
 
 def save(product):
     sql = """
@@ -19,3 +21,20 @@ def save(product):
 
 def delete_all():
     run_sql("DELETE FROM products")
+
+def select_all():
+    return sorted(
+        [
+            Product(
+                record['name'],
+                record['description'],
+                record['quantity'],
+                record['cost'],
+                record['price'],
+                manufacturer_repository.select(record['manufacturer_id']),
+                record['id']
+            )
+            for record in run_sql("SELECT * FROM products")
+        ],
+        key = lambda record: record.name
+    )

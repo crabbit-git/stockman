@@ -22,3 +22,7 @@ def select_all():
         Manufacturer(record['name'], record['country'], record['id'])
         for record in run_sql("SELECT * FROM manufacturers")
     ]
+
+def select(id):
+    query = run_sql("SELECT * FROM manufacturers WHERE id = %s", [id])[0]
+    return Manufacturer(query['name'], query['country'], query['id'])

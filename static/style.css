@@ -1,8 +1,6 @@
 body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 16px;
-    height: 100%;
-    width: 100%;
     padding: 0;
     margin: 0;
 }
@@ -18,6 +16,11 @@ ul {
 
 .list-object {
     margin: 2%;
+}
+
+.description {
+    margin: 0 4%;
+    text-align: left;
 }
 
 .navbar ul {

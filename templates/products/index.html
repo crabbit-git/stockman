@@ -3,7 +3,7 @@
     <h1>Product list</h1>
     <ul class="big-list">
         {% for product in products %}
-            <div class="list-object"><li>{{ product.manufacturer.name }} {{ product.name }}</li></div>
+            <div class="list-object"><li>{{ product.manufacturer.name }} <a href="/products/{{product.id}}">{{ product.name }}</a></li></div>
         {% endfor %}
     </ul>
 {% endblock content %}

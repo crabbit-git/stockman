@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ product.name }}</h1>
+    <h2>{{ product.manufacturer.name }} ({{ product.manufacturer.country }})</h2>
+    <h3>Product description:</h3><p class="description">{{ product.description }}</p>
+    <h3>Supply cost:</h3><p class="currency"></p>£{{ product.cost }}</p>
+    <h3>Sale price:</h3><p class="currency">£{{ product.price }}</p>
+    <h3>Stock on hand:</h3><p class="int">{{ product.quantity }}</p>
+{% endblock content %}

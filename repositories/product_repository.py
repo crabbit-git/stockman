@@ -23,18 +23,27 @@ def delete_all():
     run_sql("DELETE FROM products")
 
 def select_all():
-    return sorted(
-        [
-            Product(
-                record['name'],
-                record['description'],
-                record['quantity'],
-                record['cost'],
-                record['price'],
-                manufacturer_repository.select(record['manufacturer_id']),
-                record['id']
-            )
-            for record in run_sql("SELECT * FROM products")
-        ],
-        key = lambda record: record.name
+    return [
+        Product(
+            record['name'],
+            record['description'],
+            record['quantity'],
+            record['cost'],
+            record['price'],
+            manufacturer_repository.select(record['manufacturer_id']),
+            record['id']
+        )
+        for record in run_sql("SELECT * FROM products ORDER BY manufacturer_id, id")
+    ]
+
+def select(id):
+    query = run_sql("SELECT * FROM products WHERE id = %s", [id])[0]
+    return Product(
+        query['name'],
+        query['description'],
+        query['quantity'],
+        query['cost'],
+        query['price'],
+        manufacturer_repository.select(query['manufacturer_id']),
+        query['id']
     )

@@ -55,3 +55,9 @@ def edit_manufacturer(id):
         )
     )
     return redirect("/manufacturers")
+
+# Destroy a given manufacturer record:
+@manufacturers_blueprint.route("/manufacturers/<id>/delete", methods=['POST'])
+def delete_manufacturer(id):
+    manufacturer_repository.delete(id)
+    return redirect("/manufacturers")

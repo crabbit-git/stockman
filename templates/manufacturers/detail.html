@@ -3,6 +3,9 @@
     <h1>{{ manufacturer.name }}</h1>
     <h2>Location: {{ manufacturer.country }}</h2>
     <p><a href="/manufacturers/{{manufacturer.id}}/edit"><button>Edit manufacturer details</button></a></p>
+    <form class="deletion_form" action="/manufacturers/{{manufacturer.id}}/delete" method="post">
+        <button>Remove manufacturer from database</button>
+    </form>
     <h3>All products by {{ manufacturer.name }}:</h3>
     {% if products|length == 0 %}
         No products by this manufacturer are currently in the database.

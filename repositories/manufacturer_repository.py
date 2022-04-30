@@ -35,3 +35,9 @@ def update(manufacturer):
     """
     values = [manufacturer.name, manufacturer.country, manufacturer.id]
     run_sql(sql, values)
+
+def delete(id):
+    run_sql(
+        "DELETE FROM manufacturers WHERE id = %s",
+        [id]
+    )

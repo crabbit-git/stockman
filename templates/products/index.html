@@ -1,22 +1,31 @@
 {% extends 'base.html' %}
+{% block title %}
+    Stockman: {{ page }}
+{% endblock title %}
 {% block content %}
-    <h1>Product list</h1>
-    <table>
-        <tr>
-            <th>Manufacturer</th>
-            <th>Product</th>
-            <th>Cost</th>
-            <th>Price</th>
-            <th>Stock</th>
-        </tr>
-        {% for product in products %}
+    {% block list_header %}
+        <h1>{{ page }}</h1>
+    {% endblock list_header %}
+    {% if products|length == 0 %}
+        Nothing to display
+    {% else %}
+        <table>
             <tr>
-                <td><a href="/manufacturers/{{product.manufacturer.id}}">{{ product.manufacturer.name }}</a></td>
-                <td><a href="/products/{{product.id}}">{{ product.name }}</a></td>
-                <td>{{ product.cost }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.quantity }}</td>
+                <th>Manufacturer</th>
+                <th>Product</th>
+                <th>Cost</th>
+                <th>Price</th>
+                <th>Stock</th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for product in products %}
+                <tr>
+                    <td><a href="/manufacturers/{{product.manufacturer.id}}">{{ product.manufacturer.name }}</a></td>
+                    <td><a href="/products/{{product.id}}">{{ product.name }}</a></td>
+                    <td>{{ product.cost }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.quantity }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 {% endblock content %}

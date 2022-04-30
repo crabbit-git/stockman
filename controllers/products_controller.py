@@ -10,7 +10,26 @@ products_blueprint = Blueprint("products", __name__)
 def list_products():
     return render_template(
         "products/index.html",
+        page = "All Products",
         products = product_repository.select_all()
+    )
+
+# Only in stock products:
+@products_blueprint.route("/products/in-stock")
+def list_in_stock():
+    return render_template(
+        "products/index.html",
+        page = "In Stock",
+        products = product_repository.select_all(1)
+    )
+
+# Only out of stock products:
+@products_blueprint.route("/products/out-of-stock")
+def list_out_of_stock():
+    return render_template(
+        "products/index.html",
+        page = "Out Of Stock",
+        products = product_repository.select_all(0)
     )
 
 # Go to page to add new product:
@@ -18,6 +37,7 @@ def list_products():
 def goto_add_product():
     return render_template(
         "products/add.html",
+        page = "New Product",
         manufacturers = manufacturer_repository.select_all()
     )
 
@@ -49,6 +69,7 @@ def product_detail(id):
 def goto_edit_product(id):
     return render_template(
         "products/edit.html",
+        page = "Editing",
         product = product_repository.select(id),
         manufacturers = manufacturer_repository.select_all()
     )

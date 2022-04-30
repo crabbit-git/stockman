@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block title %}
+    Stockman: {{ page }} {{ manufacturer.name }}
+{% endblock title %}
 {% block content %}
     <form action="/manufacturers/{{manufacturer.id}}" method="post">
         <div>

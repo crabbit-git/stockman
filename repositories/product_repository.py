@@ -22,7 +22,20 @@ def save(product):
 def delete_all():
     run_sql("DELETE FROM products")
 
-def select_all():
+def select_all(filter = None):
+    sort = "manufacturer_id, id"
+    values = None
+    if filter == None:
+        condition = ""
+    elif filter == 1:
+        condition = "WHERE quantity > 0"
+    elif filter == 0:
+        condition = "WHERE quantity = 0"
+    else:
+        condition = "WHERE manufacturer_id = %s"
+        sort = "id"
+        values = [filter.id]
+    sql = f"SELECT * FROM products {condition} ORDER BY {sort}"
     return [
         Product(
             record['name'],
@@ -33,7 +46,7 @@ def select_all():
             manufacturer_repository.select(record['manufacturer_id']),
             record['id']
         )
-        for record in run_sql("SELECT * FROM products ORDER BY manufacturer_id, id")
+        for record in run_sql(sql, values)
     ]
 
 def select(id):
@@ -47,26 +60,6 @@ def select(id):
         manufacturer_repository.select(query['manufacturer_id']),
         query['id']
     )
-
-def select_all_by_manufacturer(manufacturer):
-    sql = """
-    SELECT * FROM products WHERE manufacturer_id = %s
-    ORDER BY id
-    """
-    values = [manufacturer.id]
-    query = run_sql(sql, values)
-    return [
-        Product(
-            record['name'],
-            record['description'],
-            record['quantity'],
-            record['cost'],
-            record['price'],
-            manufacturer_repository.select(record['manufacturer_id']),
-            record['id']
-        )
-        for record in query
-    ]
 
 def update(product):
     sql = """

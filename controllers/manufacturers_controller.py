@@ -8,12 +8,19 @@ manufacturers_blueprint = Blueprint("manufacturers", __name__)
 # Manufacturer index (list all manufacturers):
 @manufacturers_blueprint.route("/manufacturers")
 def list_manufacturers():
-    return render_template("manufacturers/index.html", manufacturers = manufacturer_repository.select_all())
+    return render_template(
+        "manufacturers/index.html",
+        page = "Manufacturers",
+        manufacturers = manufacturer_repository.select_all()
+    )
 
 # Go to form to add new manufacturer:
 @manufacturers_blueprint.route("/manufacturers/add", methods=['GET'])
 def goto_add_manufacturer():
-    return render_template("manufacturers/add.html")
+    return render_template(
+        "manufacturers/add.html",
+        page = "New Manufacturer"
+    )
 
 # Constructor to create new manufacturer from form input:
 @manufacturers_blueprint.route("/manufacturers", methods=['POST'])
@@ -33,7 +40,7 @@ def manufacturer_detail(id):
     return render_template(
         "manufacturers/detail.html",
         manufacturer = selected_manufacturer,
-        products = product_repository.select_all_by_manufacturer(selected_manufacturer)
+        products = product_repository.select_all(selected_manufacturer)
     )
 
 # Go to form to edit manufacturer:
@@ -41,6 +48,7 @@ def manufacturer_detail(id):
 def goto_edit_manufacturer(id):
     return render_template(
         "manufacturers/edit.html",
+        page = "Editing",
         manufacturer = manufacturer_repository.select(id)
     )
 

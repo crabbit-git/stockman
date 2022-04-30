@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block title %}
+    Stockman: {{ product.name }}
+{% endblock title %}
 {% block content %}
     <h1>{{ product.name }}</h1>
     <h2>{{ product.manufacturer.name }} ({{ product.manufacturer.country }})</h2>

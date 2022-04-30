@@ -20,7 +20,7 @@ def delete_all():
 def select_all():
     return [
         Manufacturer(record['name'], record['country'], record['id'])
-        for record in run_sql("SELECT * FROM manufacturers")
+        for record in run_sql("SELECT * FROM manufacturers ORDER BY id")
     ]
 
 def select(id):

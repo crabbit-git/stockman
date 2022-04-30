@@ -6,6 +6,7 @@ body {
 }
 
 main {
+    height: 95%;
     text-align: center;
 }
 
@@ -38,6 +39,7 @@ ul {
 footer {
     position:fixed;
     width: 100%;
+    background-color: white;
     bottom: 0;
     padding: 14px;
     font-size: 14px;

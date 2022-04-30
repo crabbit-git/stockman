@@ -7,7 +7,7 @@
         </div>
         <div>
             <label for="name">Manufacturer location (<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1 alpha-2 code</a>):</label>
-            <input type="text" id="country" name="country" placeholder="Manufacturer location" required autofocus />
+            <input type="text" id="country" name="country" placeholder="Country code (e.g. CN)" pattern="[A-Z]{2}" required autofocus />
         </div>
         <button type="submit">Add manufacturer to database</button>
     </form>

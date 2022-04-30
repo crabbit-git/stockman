@@ -84,3 +84,9 @@ def update(product):
         product.id
     ]
     run_sql(sql, values)
+
+def delete(id):
+    run_sql(
+        "DELETE FROM products WHERE id = %s",
+        [id]
+    )

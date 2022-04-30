@@ -7,4 +7,7 @@
     <h3>Sale price:</h3><p class="currency">£{{ product.price }}</p>
     <h3>Stock on hand:</h3><p class="int">{{ product.quantity }}</p>
     <p><a href="/products/{{product.id}}/edit"><button>Edit product details/quantity</button></a></p>
+    <form class="deletion_form" action="/products/{{product.id}}/delete" method="post">
+        <button>Remove product from database</button>
+    </form>
 {% endblock content %}

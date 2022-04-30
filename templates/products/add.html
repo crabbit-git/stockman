@@ -12,6 +12,7 @@
         <div>
             <label for="manufacturer">Manufacturer (<a href="/manufacturers/add">add</a> if unlisted):</label>
             <select id="manufacturer" name="manufacturer_id" placeholder="Manufacturer" required>
+                <option value="" disabled selected>Select manufacturer</option>
             {% for manufacturer in manufacturers %}
                 <option value="{{ manufacturer.id }}">{{ manufacturer.name }} ({{ manufacturer.country }})</option>
             {% endfor %}

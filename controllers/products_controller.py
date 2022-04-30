@@ -43,3 +43,28 @@ def product_detail(id):
         "products/detail.html",
         product = product_repository.select(id)
     )
+
+# Go to form to edit product:
+@products_blueprint.route("/products/<id>/edit", methods=['GET'])
+def goto_edit_product(id):
+    return render_template(
+        "products/edit.html",
+        product = product_repository.select(id),
+        manufacturers = manufacturer_repository.select_all()
+    )
+
+# Constructor to overwrite existing product with new version with same table ID:
+@products_blueprint.route("/products/<id>", methods=['POST'])
+def edit_product(id):
+    product_repository.update(
+        Product(
+            request.form['name'],
+            request.form['description'],
+            request.form['quantity'],
+            request.form['cost'],
+            request.form['price'],
+            manufacturer_repository.select(request.form['manufacturer_id']),
+            id
+        )
+    )
+    return redirect("/products")

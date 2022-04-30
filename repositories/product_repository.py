@@ -67,3 +67,20 @@ def select_all_by_manufacturer(manufacturer):
         )
         for record in query
     ]
+
+def update(product):
+    sql = """
+    UPDATE products
+    SET (name, description, quantity, cost, price, manufacturer_id) = (%s, %s, %s, %s, %s, %s)
+    WHERE id = %s
+    """
+    values = [
+        product.name,
+        product.description,
+        product.quantity,
+        product.cost,
+        product.price,
+        product.manufacturer.id,
+        product.id
+    ]
+    run_sql(sql, values)

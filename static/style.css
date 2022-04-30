@@ -15,6 +15,11 @@ ul {
     padding: 0;
 }
 
+table {
+    margin: auto;
+    text-align: left;
+}
+
 .list-object {
     margin: 2%;
 }

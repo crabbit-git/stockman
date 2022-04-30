@@ -1,9 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Product list</h1>
-    <ul class="big-list">
+    <table>
+        <tr>
+            <th>Manufacturer</th>
+            <th>Product</th>
+            <th>Cost</th>
+            <th>Price</th>
+            <th>Stock</th>
+        </tr>
         {% for product in products %}
-            <div class="list-object"><li><a href="/manufacturers/{{product.manufacturer.id}}">{{ product.manufacturer.name }}</a> <a href="/products/{{product.id}}">{{ product.name }}</a></li></div>
+            <tr>
+                <td><a href="/manufacturers/{{product.manufacturer.id}}">{{ product.manufacturer.name }}</a></td>
+                <td><a href="/products/{{product.id}}">{{ product.name }}</a></td>
+                <td>{{ product.cost }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 {% endblock content %}

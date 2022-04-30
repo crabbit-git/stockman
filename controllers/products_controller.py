@@ -5,6 +5,15 @@ from repositories import product_repository, manufacturer_repository
 
 products_blueprint = Blueprint("products", __name__)
 
+# Product index (list all products):
+@products_blueprint.route("/products")
+def list_products():
+    return render_template(
+        "products/index.html",
+        products = product_repository.select_all()
+    )
+
+# Go to page to add new product:
 @products_blueprint.route("/products/add", methods=['GET'])
 def goto_add_product():
     return render_template(
@@ -12,6 +21,7 @@ def goto_add_product():
         manufacturers = manufacturer_repository.select_all()
     )
 
+# Constructor to create new product from form input:
 @products_blueprint.route("/products", methods=['POST'])
 def construct_product():
     product_repository.save(
@@ -26,13 +36,7 @@ def construct_product():
     )
     return redirect("/products")
 
-@products_blueprint.route("/products")
-def list_products():
-    return render_template(
-        "products/index.html",
-        products = product_repository.select_all()
-    )
-
+# Show product detail:
 @products_blueprint.route("/products/<id>", methods = ['GET'])
 def product_detail(id):
     return render_template(

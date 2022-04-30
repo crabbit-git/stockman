@@ -26,3 +26,12 @@ def select_all():
 def select(id):
     query = run_sql("SELECT * FROM manufacturers WHERE id = %s", [id])[0]
     return Manufacturer(query['name'], query['country'], query['id'])
+
+def update(manufacturer):
+    sql = """
+    UPDATE manufacturers
+    SET (name, country) = (%s, %s)
+    WHERE id = %s
+    """
+    values = [manufacturer.name, manufacturer.country, manufacturer.id]
+    run_sql(sql, values)

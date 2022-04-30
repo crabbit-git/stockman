@@ -2,7 +2,13 @@
 {% block content %}
     <h1>{{ manufacturer.name }}</h1>
     <h2>Location: {{ manufacturer.country }}</h2>
+    <p><a href="/manufacturers/{{manufacturer.id}}/edit"><button>Edit manufacturer details</button></a></p>
     <h3>All products by {{ manufacturer.name }}:</h3>
+    {% if products|length == 0 %}
+        No products by this manufacturer are currently in the database.
+        <br><br>
+        <a href="/products/add"><button>Add product</button></a>
+    {% endif %}
     <ul class="big-list">
         {% for product in products %}
             <div class="list-object"><li><a href="/products/{{product.id}}">{{ product.name }}</a></li></div>

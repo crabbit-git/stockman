@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form action="/manufacturers/{{manufacturer.id}}" method="post">
+        <div>
+            <label for="name">Manufacturer name:</label>
+            <input type="text" id="name" name="name" value="{{manufacturer.name}}" required autofocus />
+        </div>
+        <div>
+            <label for="country">Manufacturer location (<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1 alpha-2 code</a>):</label>
+            <input type="text" id="country" name="country" value="{{manufacturer.country}}" pattern="[A-Z]{2}" required />
+        </div>
+        <button type="submit">Submit updated details</button>
+    </form>
+{% endblock content %}

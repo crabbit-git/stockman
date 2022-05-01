@@ -1,6 +1,3 @@
-from tokenize import ContStr
-
-
 class Product:
     def __init__(self, name, description, quantity, cost, price, manufacturer, id = None):
         self.name = name

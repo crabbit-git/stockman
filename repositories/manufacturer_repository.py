@@ -24,8 +24,10 @@ def select_all():
     ]
 
 def select(id):
-    query = run_sql("SELECT * FROM manufacturers WHERE id = %s", [id])[0]
-    return Manufacturer(query['name'], query['country'], query['id'])
+    query = run_sql("SELECT * FROM manufacturers WHERE id = %s", [id])
+    if len(query) == 1:
+        record = query[0]
+    return Manufacturer(record['name'], record['country'], record['id'])
 
 def update(manufacturer):
     sql = """

@@ -50,15 +50,17 @@ def select_all(filter = None):
     ]
 
 def select(id):
-    query = run_sql("SELECT * FROM products WHERE id = %s", [id])[0]
+    query = run_sql("SELECT * FROM products WHERE id = %s", [id])
+    if len(query) == 1:
+        record = query[0]
     return Product(
-        query['name'],
-        query['description'],
-        query['quantity'],
-        query['cost'],
-        query['price'],
-        manufacturer_repository.select(query['manufacturer_id']),
-        query['id']
+        record['name'],
+        record['description'],
+        record['quantity'],
+        record['cost'],
+        record['price'],
+        manufacturer_repository.select(record['manufacturer_id']),
+        record['id']
     )
 
 def update(product):
@@ -77,6 +79,12 @@ def update(product):
         product.id
     ]
     run_sql(sql, values)
+
+def count(id, quantity):
+    run_sql(
+        "UPDATE products SET quantity = %s WHERE id = %s",
+        [quantity, id]
+    )
 
 def delete(id):
     run_sql(

@@ -8,17 +8,29 @@
     <h3>Product description:</h3><p class="description">{{ product.description }}</p>
     <h3>Supply cost:</h3><p class="currency"></p>£{{ product.cost }}</p>
     <h3>Sale price:</h3><p class="currency">£{{ product.price }}</p>
-    <h3>Stock on hand:</h3>
+    <h3>Quantity available:</h3>
     <p class="int">
         {% if product.quantity == 0 %}
-            OUT OF STOCK
+        <form action="/products/{{product.id}}/count" method="post">
+            <input type="number" id="quantity" name="quantity" value="{{product.quantity}}" min = 0 max="999" required />
+            <button>Override quantity</button>
+        </form>
+        <br>
+        <b>OUT OF STOCK</b>
         {% elif product.quantity < 4 %}
-            {{ product.quantity }} – LOW STOCK
+        <b>LOW STOCK</b>
+        <form action="/products/{{product.id}}/count" method="post">
+            <input type="number" id="quantity" name="quantity" value="{{product.quantity}}" min = 0 max="999" required />
+            <button>Override quantity</button>
+        </form>
         {% else %}
-            {{ product.quantity }}
+            <form action="/products/{{product.id}}/count" method="post">
+                <input type="number" id="quantity" name="quantity" value="{{product.quantity}}" min = 0 max="999" required />
+                <button>Update quantity</button>
+            </form>
         {% endif %}
     </p>
-    <p><a href="/products/{{product.id}}/edit"><button>Edit product details/quantity</button></a></p>
+    <p><a href="/products/{{product.id}}/edit"><button>Edit product details</button></a></p>
     <form class="deletion_form" action="/products/{{product.id}}/delete" method="post">
         <button>Remove product from database</button>
     </form>

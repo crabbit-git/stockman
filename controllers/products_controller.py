@@ -81,14 +81,30 @@ def edit_product(id):
         Product(
             request.form['name'],
             request.form['description'],
-            request.form['quantity'],
+            product_repository.select(id).quantity,
             request.form['cost'],
             request.form['price'],
             manufacturer_repository.select(request.form['manufacturer_id']),
             id
         )
     )
-    return redirect("/products")
+    return render_template(
+        "products/updated.html",
+        page = "Updated",
+        product = product_repository.select(id),
+        edit_type = "Product record"
+    )
+
+# Update quantity only for a given product:
+@products_blueprint.route("/products/<id>/count", methods=['POST'])
+def count_product(id):
+    product_repository.count(id, request.form['quantity'])
+    return render_template(
+        "products/updated.html",
+        page = "Updated",
+        product = product_repository.select(id),
+        edit_type = "Stock"
+    )
 
 # Destroy a given manufacturer record:
 @products_blueprint.route("/products/<id>/delete", methods=['POST'])

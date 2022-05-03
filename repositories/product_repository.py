@@ -1,15 +1,18 @@
 from db.run_sql import run_sql
 from models.product import Product
-from repositories import manufacturer_repository
+from models.manufacturer import Manufacturer
+from models.category import Category
+from repositories import manufacturer_repository, category_repository
 
 def save(product):
     sql = """
-    INSERT INTO products (name, description, quantity, cost, price, manufacturer_id)
-    VALUES (%s, %s, %s, %s, %s, %s)
+    INSERT INTO products (name, category_id, description, quantity, cost, price, manufacturer_id)
+    VALUES (%s, %s, %s, %s, %s, %s, %s)
     RETURNING id
     """
     values = [
         product.name,
+        product.category.id,
         product.description,
         product.quantity,
         product.cost,
@@ -31,14 +34,20 @@ def select_all(filter = None):
         condition = "WHERE quantity > 0"
     elif filter == 0:
         condition = "WHERE quantity = 0"
-    else:
+    elif type(filter) is Manufacturer:
         condition = "WHERE manufacturer_id = %s"
         sort = "id"
         values = [filter.id]
+    elif type(filter) is Category:
+        condition = "WHERE category_id = %s"
+        values = [filter.id]
+    else:
+        return []
     sql = f"SELECT * FROM products {condition} ORDER BY {sort}"
     return [
         Product(
             record['name'],
+            category_repository.select(record['category_id']),
             record['description'],
             record['quantity'],
             record['cost'],
@@ -55,6 +64,7 @@ def select(id):
         record = query[0]
     return Product(
         record['name'],
+        category_repository.select(record['category_id']),
         record['description'],
         record['quantity'],
         record['cost'],

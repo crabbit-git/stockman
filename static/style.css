@@ -24,12 +24,11 @@ table {
 }
 
 .list-object {
-    margin: 2%;
+    margin: 1%;
 }
 
 .description {
     margin: 0 4%;
-    text-align: left;
 }
 
 .navbar ul {

@@ -4,19 +4,19 @@
 {% endblock title %}
 {% block content %}
     <h1>{{ product.name }}</h1>
-    <h2>{{ product.manufacturer.name }} ({{ product.manufacturer.country }})</h2>
-    <h3>Product description:</h3><p class="description">{{ product.description }}</p>
+    <h2>Manufactured by {{ product.manufacturer.name }} ({{ product.manufacturer.country }})</h2>
+    <h3>Category:</h3><p class="category-name">{{ product.category.name }}</p>
+    <h3>Description:</h3><p class="description">{{ product.description }}</p>
     <h3>Supply cost:</h3><p class="currency"></p>£{{ product.cost }}</p>
     <h3>Sale price:</h3><p class="currency">£{{ product.price }}</p>
     <h3>Quantity available:</h3>
     <p class="int">
         {% if product.quantity == 0 %}
+        <b>OUT OF STOCK</b>
         <form action="/products/{{product.id}}/count" method="post">
             <input type="number" id="quantity" name="quantity" value="{{product.quantity}}" min = 0 max="999" required />
-            <button>Override quantity</button>
+            <button>Update quantity</button>
         </form>
-        <br>
-        <b>OUT OF STOCK</b>
         {% elif product.quantity < 4 %}
         <b>LOW STOCK</b>
         <form action="/products/{{product.id}}/count" method="post">

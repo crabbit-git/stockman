@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect
 from models.product import Product
 
-from repositories import product_repository, manufacturer_repository
+from repositories import product_repository, manufacturer_repository, category_repository
 
 products_blueprint = Blueprint("products", __name__)
 
@@ -38,7 +38,8 @@ def goto_add_product():
     return render_template(
         "products/add.html",
         page = "New Product",
-        manufacturers = manufacturer_repository.select_all()
+        manufacturers = manufacturer_repository.select_all(),
+        categories = category_repository.select_all()
     )
 
 # Constructor to create new product from form input:
@@ -47,6 +48,7 @@ def construct_product():
     product_repository.save(
         Product(
             request.form['name'],
+            category_repository.select(request.form['category_id']),
             request.form['description'],
             request.form['quantity'],
             request.form['cost'],
@@ -71,7 +73,8 @@ def goto_edit_product(id):
         "products/edit.html",
         page = "Editing",
         product = product_repository.select(id),
-        manufacturers = manufacturer_repository.select_all()
+        manufacturers = manufacturer_repository.select_all(),
+        categories = category_repository.select_all()
     )
 
 # Constructor to overwrite existing product with new version with same table ID:
@@ -80,6 +83,7 @@ def edit_product(id):
     product_repository.update(
         Product(
             request.form['name'],
+            category_repository.select(request.form['category_id']),
             request.form['description'],
             product_repository.select(id).quantity,
             request.form['cost'],

@@ -11,6 +11,7 @@
     {% else %}
         <table>
             <tr>
+                <th>Category</th>
                 <th>Manufacturer</th>
                 <th>Product</th>
                 <th>Cost</th>
@@ -19,6 +20,7 @@
             </tr>
             {% for product in products %}
                 <tr>
+                    <td><a href="/categories/{{product.category.id}}">{{ product.category.name }}</a></td>
                     <td><a href="/manufacturers/{{product.manufacturer.id}}">{{ product.manufacturer.name }}</a></td>
                     <td><a href="/products/{{product.id}}">{{ product.name }}</a></td>
                     <td>{{ product.cost }}</td>

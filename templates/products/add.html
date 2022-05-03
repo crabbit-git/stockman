@@ -3,14 +3,16 @@
     Stockman: {{ page }}
 {% endblock title %}
 {% block content %}
+    <h1>Adding new product</h1>
     <form action="/products" method="post">
         <div>
-            <label for="name">Product name:</label>
-            <input type="text" id="name" name="name" placeholder="Product name" required autofocus />
-        </div>
-        <div>
-            <label for="description">Description:</label>
-            <textarea rows="5" cols="50" id="description" name="description" placeholder="Product description (255 characters max)" maxlength="255" required></textarea>
+            <label for="category">Category (<a href="/categories/add">add</a> if unlisted):</label>
+            <select id="category" name="category_id" placeholder="Category" required>
+                <option value="" disabled selected>Select category</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+            </select>
         </div>
         <div>
             <label for="manufacturer">Manufacturer (<a href="/manufacturers/add">add</a> if unlisted):</label>
@@ -20,6 +22,14 @@
                 <option value="{{ manufacturer.id }}">{{ manufacturer.name }} ({{ manufacturer.country }})</option>
             {% endfor %}
             </select>
+        </div>
+        <div>
+            <label for="name">Product:</label>
+            <input type="text" id="name" name="name" placeholder="Product name" size="50" required autofocus />
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea rows="5" cols="50" id="description" name="description" placeholder="Product description (255 characters max)" maxlength="255" required></textarea>
         </div>
         <div>
             <label for="cost">Supply cost:</label>

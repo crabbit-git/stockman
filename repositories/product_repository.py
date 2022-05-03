@@ -6,11 +6,10 @@ from repositories import manufacturer_repository, category_repository
 
 def save(product):
     '''
-    Save a new product into the database by passing in a Product python object,
-    converting its attributes to SQL key:value pairs, and inserting them.
-    The auto-generated SQL ID is returned from the table and written to the
-    Python object, then the fully formed new Product object is returned for use
-    in confirmation messages and for debugging purposes:
+    Takes a Product object, turns it into key:value pairs, writes it into an
+    SQL database record, then reads back the auto-generated SQL ID and writes
+    it to the Python object, which it then returns for use in a confirmation
+    message and for debugging purposes:
     '''
     sql = """
     INSERT INTO products (
@@ -75,8 +74,8 @@ def select_all(filter = None):
 
 def select(id):
     '''
-    Selects a given product by ID and, if the SQL query successfully returns a
-    list containing only one record, returns all of its attributes by
+    Selects a given product record by ID and, if the SQL query successfully
+    returns a list containing only one record, returns all of its attributes by
     constructing a Product object in Python:
     '''
     query = run_sql("SELECT * FROM products WHERE id = %s", [id])
@@ -105,12 +104,16 @@ def count(id, quantity):
 
 def update(product):
     '''
-    Updates every attribute for a given product except for its in stock quantity
-    and its SQL record ID:
+    Updates every attribute for a given product except for its in stock
+    quantity and its SQL record ID:
     '''
     sql = """
     UPDATE products
-    SET (name, description, quantity, cost, price, manufacturer_id) = (%s, %s, %s, %s, %s, %s)
+    SET (
+        name, description, quantity, cost, price, manufacturer_id
+    ) = (
+        %s, %s, %s, %s, %s, %s
+    )
     WHERE id = %s
     """
     values = [

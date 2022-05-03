@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request
 from models.product import Product
 
 from repositories import product_repository, manufacturer_repository, category_repository
@@ -45,18 +45,21 @@ def goto_add_product():
 # Constructor to create new product from form input:
 @products_blueprint.route("/products", methods=['POST'])
 def construct_product():
-    product_repository.save(
-        Product(
-            request.form['name'],
-            category_repository.select(request.form['category_id']),
-            request.form['description'],
-            request.form['quantity'],
-            request.form['cost'],
-            request.form['price'],
-            manufacturer_repository.select(request.form['manufacturer_id'])
+    return render_template(
+        "products/added.html",
+        page = "Created",
+        product = product_repository.save(
+            Product(
+                request.form['name'],
+                category_repository.select(request.form['category_id']),
+                request.form['description'],
+                request.form['quantity'],
+                request.form['cost'],
+                request.form['price'],
+                manufacturer_repository.select(request.form['manufacturer_id'])
+            )
         )
     )
-    return redirect("/products")
 
 # Show product detail:
 @products_blueprint.route("/products/<id>", methods = ['GET'])

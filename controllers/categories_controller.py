@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request
 from models.category import Category
 
 from repositories import category_repository, product_repository
@@ -25,12 +25,15 @@ def goto_add_category():
 # Constructor to create new category from form input:
 @categories_blueprint.route("/categories", methods=['POST'])
 def construct_category():
-    category_repository.save(
-        Category(
-            request.form['name'],
+    return render_template(
+        "categories/added.html",
+        page = "Created",
+        category = category_repository.save(
+            Category(
+                request.form['name'],
+            )
         )
     )
-    return redirect("/categories")
 
 # Show category detail:
 @categories_blueprint.route("/categories/<id>", methods=['GET'])

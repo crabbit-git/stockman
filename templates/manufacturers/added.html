@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}
+    Stockman: {{ page }} {{ manufacturer.name }}
+{% endblock title %}
+{% block content %}
+    <p>{{ manufacturer.name}} successfully added to the database!</p>
+    <p><a href="/manufacturers/{{manufacturer.id}}">Go to new manufacturer page</a></p>
+    <p><a href="/manufacturers">Back to manufacturer list</a></p>
+{% endblock content %}

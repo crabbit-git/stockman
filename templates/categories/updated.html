@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}
+    Stockman: {{ page }} {{ category.name }}
+{% endblock title %}
+{% block content %}
+    <p>{{ category.name }} renamed successfully!</p>
+    <p><a href="/categories/{{category.id}}">Return to category</a></p>
+    <p><a href="/products">Back to product list</a></p>
+{% endblock content %}

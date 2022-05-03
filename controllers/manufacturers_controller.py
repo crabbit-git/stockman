@@ -52,7 +52,7 @@ def goto_edit_manufacturer(id):
         manufacturer = manufacturer_repository.select(id)
     )
 
-# Constructor to overwrite existing manufacturer with new version with same table ID:
+# Overwrite existing manufacturer with new version with same table ID:
 @manufacturers_blueprint.route("/manufacturers/<id>", methods=['POST'])
 def edit_manufacturer(id):
     manufacturer_repository.update(
@@ -62,10 +62,27 @@ def edit_manufacturer(id):
             id
         )
     )
-    return redirect("/manufacturers")
+    return render_template(
+        "manufacturers/updated.html",
+        page = "Updated",
+        manufacturer = manufacturer_repository.select(id),
+        edit_type = "Manufacturer details"
+    )
 
-# Destroy a given manufacturer record:
+# Destroy a given manufacturer record if the manu has no products in the db,
+# otherwise returns a failure message:
 @manufacturers_blueprint.route("/manufacturers/<id>/delete", methods=['POST'])
 def delete_manufacturer(id):
-    manufacturer_repository.delete(id)
-    return redirect("/manufacturers")
+    deletion_attempt = manufacturer_repository.delete(id)
+    if deletion_attempt is not None:
+        return render_template(
+            "manufacturers/deletion-success.html",
+            page = "Deleted",
+            manufacturer_name = deletion_attempt,
+        )
+    else:
+        return render_template(
+            "manufacturers/deletion-failed.html",
+            page = "Deletion failed",
+            manufacturer = manufacturer_repository.select(id)
+        )

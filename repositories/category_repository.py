@@ -26,3 +26,24 @@ def select(id):
         record['name'],
         record['id']
     )
+
+def update(category):
+    run_sql(
+        "UPDATE categories SET name = %s WHERE id = %s",
+        [category.name, category.id]
+    )
+
+def delete(id):
+    '''
+    If there are no products from a given category in the database,
+    deletes the category record by targeting its ID in the table,
+    then returns its name for use in a confirmation message.
+    Otherwise, returns None and leaves the database alone.
+    '''
+    if len(
+        run_sql("SELECT FROM products WHERE category_id = %s", [id])
+    ) == 0:
+        return run_sql(
+            "DELETE FROM categories WHERE id = %s RETURNING name",
+            [id]
+        )[0]['name']

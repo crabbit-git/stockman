@@ -20,7 +20,7 @@ def list_in_stock():
     return render_template(
         "products/index.html",
         page = "In Stock",
-        products = product_repository.select_all(1)
+        products = product_repository.select_all("in stock")
     )
 
 # Only out of stock products:
@@ -29,7 +29,7 @@ def list_out_of_stock():
     return render_template(
         "products/index.html",
         page = "Out Of Stock",
-        products = product_repository.select_all(0)
+        products = product_repository.select_all("out of stock")
     )
 
 # Go to page to add new product:
@@ -77,7 +77,7 @@ def goto_edit_product(id):
         categories = category_repository.select_all()
     )
 
-# Constructor to overwrite existing product with new version with same table ID:
+# Overwrite existing product with new version with same table ID:
 @products_blueprint.route("/products/<id>", methods=['POST'])
 def edit_product(id):
     product_repository.update(
@@ -96,7 +96,7 @@ def edit_product(id):
         "products/updated.html",
         page = "Updated",
         product = product_repository.select(id),
-        edit_type = "Product record"
+        edit_type = "Product details"
     )
 
 # Update quantity only for a given product:
@@ -110,8 +110,12 @@ def count_product(id):
         edit_type = "Stock"
     )
 
-# Destroy a given manufacturer record:
+# Destroy a given product record:
 @products_blueprint.route("/products/<id>/delete", methods=['POST'])
 def delete_product(id):
-    product_repository.delete(id)
-    return redirect("/products")
+    return render_template(
+        "products/deletion-result.html",
+        page = "Deleted",
+        product_name = product_repository.delete(id),
+        edit_type = "Product deleted"
+    )

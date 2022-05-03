@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}
+    Stockman: {{ page }}
+{% endblock title %}
+{% block content %}
+    <p>{{ page }}! If you wish to delete the "{{ category.name }}" category, please ensure that it has no products in the database before trying again.</p>
+    <p><a href="/categories/{{category.id}}">Return to category page</a></p>
+    <p><a href="/products">Back to product list</a></p>
+{% endblock content %}

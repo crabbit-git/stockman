@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}
+    Stockman: {{ page }} {{ manufacturer.name }}
+{% endblock title %}
+{% block content %}
+    <p>{{ edit_type }} updated successfully!</p>
+    <p><a href="/manufacturers/{{manufacturer.id}}">Return to manufacturer details</a></p>
+    <p><a href="/manufacturers">Back to manufacturer list</a></p>
+{% endblock content %}

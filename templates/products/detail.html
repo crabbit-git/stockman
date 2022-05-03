@@ -21,7 +21,7 @@
         <b>LOW STOCK</b>
         <form action="/products/{{product.id}}/count" method="post">
             <input type="number" id="quantity" name="quantity" value="{{product.quantity}}" min = 0 max="999" required />
-            <button>Override quantity</button>
+            <button>Update quantity</button>
         </form>
         {% else %}
             <form action="/products/{{product.id}}/count" method="post">

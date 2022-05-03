@@ -5,8 +5,17 @@ from models.category import Category
 from repositories import manufacturer_repository, category_repository
 
 def save(product):
+    '''
+    Save a new product into the database by passing in a Product python object,
+    converting its attributes to SQL key:value pairs, and inserting them.
+    The auto-generated SQL ID is returned from the table and written to the
+    Python object, then the fully formed new Product object is returned for use
+    in confirmation messages and for debugging purposes:
+    '''
     sql = """
-    INSERT INTO products (name, category_id, description, quantity, cost, price, manufacturer_id)
+    INSERT INTO products (
+        name, category_id, description, quantity, cost, price, manufacturer_id
+    )
     VALUES (%s, %s, %s, %s, %s, %s, %s)
     RETURNING id
     """
@@ -22,17 +31,23 @@ def save(product):
     product.id = run_sql(sql, values)[0]['id']
     return product
 
-def delete_all():
-    run_sql("DELETE FROM products")
-
 def select_all(filter = None):
+    '''
+    Select all products satisfying a given filter condition.
+    If no filter is specified, it simply selects all products in the table.
+    If the filter is passed the string "in stock", only products with a stock
+    quantity of more than 0 will be returned.
+    If passed "out of stock", only products with 0 stock are returned.
+    If passed a Manufacturer object, it returns only their products,
+    and if passed a Category object, it returns products from that category.
+    '''
     sort = "manufacturer_id, id"
     values = None
     if filter == None:
         condition = ""
-    elif filter == 1:
+    elif filter == "in stock":
         condition = "WHERE quantity > 0"
-    elif filter == 0:
+    elif filter == "out of stock":
         condition = "WHERE quantity = 0"
     elif type(filter) is Manufacturer:
         condition = "WHERE manufacturer_id = %s"
@@ -59,6 +74,11 @@ def select_all(filter = None):
     ]
 
 def select(id):
+    '''
+    Selects a given product by ID and, if the SQL query successfully returns a
+    list containing only one record, returns all of its attributes by
+    constructing a Product object in Python:
+    '''
     query = run_sql("SELECT * FROM products WHERE id = %s", [id])
     if len(query) == 1:
         record = query[0]
@@ -73,7 +93,21 @@ def select(id):
         record['id']
     )
 
+def count(id, quantity):
+    '''
+    Updates only the quantity in stock for a given product, since this is the
+    most frequently edited attribute for day-to-day use case:
+    '''
+    run_sql(
+        "UPDATE products SET quantity = %s WHERE id = %s",
+        [quantity, id]
+    )
+
 def update(product):
+    '''
+    Updates every attribute for a given product except for its in stock quantity
+    and its SQL record ID:
+    '''
     sql = """
     UPDATE products
     SET (name, description, quantity, cost, price, manufacturer_id) = (%s, %s, %s, %s, %s, %s)
@@ -90,14 +124,19 @@ def update(product):
     ]
     run_sql(sql, values)
 
-def count(id, quantity):
-    run_sql(
-        "UPDATE products SET quantity = %s WHERE id = %s",
-        [quantity, id]
-    )
-
 def delete(id):
-    run_sql(
-        "DELETE FROM products WHERE id = %s",
+    '''
+    Deletes a given product record by targeting its ID in the table,
+    then returns its name for use in a confirmation message:
+    '''
+    return run_sql(
+        "DELETE FROM products WHERE id = %s RETURNING name",
         [id]
-    )
+    )[0]['name']
+
+def delete_all():
+    '''
+    Delete all products. Mostly for debugging and testing purposes;
+    intentionally unavailable to the user interface to avoid catastrophes.
+    '''
+    run_sql("DELETE FROM products")

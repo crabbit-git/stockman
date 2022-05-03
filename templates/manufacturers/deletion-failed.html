@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}
+    Stockman: {{ page }}
+{% endblock title %}
+{% block content %}
+    <p>{{ page }}! If you wish to delete {{ manufacturer.name }}, please ensure that they have no products in the database before trying again.</p>
+    <p><a href="/manufacturers/{{manufacturer.id}}">Return to manufacturer details</a></p>
+    <p><a href="/manufacturers">Back to manufacturer list</a></p>
+{% endblock content %}

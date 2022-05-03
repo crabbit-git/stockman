@@ -3,7 +3,7 @@
     Stockman: {{ page }}
 {% endblock title %}
 {% block content %}
-    <h1>Product category list</h1>
+    <h1>Products By Category</h1>
     <ul class="big-list">
         {% for category in categories %}
             <div class="list-object"><li><a href="/categories/{{category.id}}">{{ category.name }}</a></li></div>

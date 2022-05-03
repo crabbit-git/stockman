@@ -28,7 +28,6 @@ def construct_category():
     category_repository.save(
         Category(
             request.form['name'],
-            request.form['country']
         )
     )
     return redirect("/categories")
@@ -52,20 +51,35 @@ def goto_edit_category(id):
         category = category_repository.select(id)
     )
 
-# Constructor to overwrite existing category with new version with same table ID:
+# Overwrite existing category with new version with same table ID:
 @categories_blueprint.route("/categories/<id>", methods=['POST'])
 def edit_category(id):
     category_repository.update(
         Category(
             request.form['name'],
-            request.form['country'],
             id
         )
     )
-    return redirect("/categories")
+    return render_template(
+        "categories/updated.html",
+        page = "Updated",
+        category = category_repository.select(id),
+    )
 
-# Destroy a given category record:
+# Deletes a given category if the category has no products in it,
+# otherwise returns a failure message:
 @categories_blueprint.route("/categories/<id>/delete", methods=['POST'])
 def delete_category(id):
-    category_repository.delete(id)
-    return redirect("/categories")
+    deletion_attempt = category_repository.delete(id)
+    if deletion_attempt is not None:
+        return render_template(
+            "categories/deletion-success.html",
+            page = "Deleted",
+            category_name = deletion_attempt,
+        )
+    else:
+        return render_template(
+            "categories/deletion-failed.html",
+            page = "Deletion failed",
+            category = category_repository.select(id)
+        )

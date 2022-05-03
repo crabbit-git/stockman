@@ -39,7 +39,16 @@ def update(manufacturer):
     run_sql(sql, values)
 
 def delete(id):
-    run_sql(
-        "DELETE FROM manufacturers WHERE id = %s",
-        [id]
-    )
+    '''
+    If there are no products by a given manufacturer in the database,
+    deletes the manufacturer record by targeting its ID in the table,
+    then returns its name for use in a confirmation message.
+    Otherwise, returns None and leaves the database alone.
+    '''
+    if len(
+        run_sql("SELECT FROM products WHERE manufacturer_id = %s", [id])
+    ) == 0:
+        return run_sql(
+            "DELETE FROM manufacturers WHERE id = %s RETURNING name",
+            [id]
+        )[0]['name']

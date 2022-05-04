@@ -55,6 +55,9 @@ header a {
     font-family: 'Share Tech Mono';
     color: white;
 }
+header a:hover {
+    color:green;
+}
 
 h1 {
     text-align: center;

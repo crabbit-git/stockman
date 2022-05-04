@@ -9,9 +9,7 @@ def save(manufacturer):
     confirmation message and for debugging purposes:
     '''
     sql = """
-    INSERT INTO manufacturers (name, country)
-    VALUES (%s, %s)
-    RETURNING id
+    INSERT INTO manufacturers (name, country) VALUES (%s, %s) RETURNING id
     """
     values = [
         manufacturer.name,
@@ -39,7 +37,7 @@ def select(id):
     query = run_sql("SELECT * FROM manufacturers WHERE id = %s", [id])
     if len(query) == 1:
         record = query[0]
-    return Manufacturer(record['name'], record['country'], record['id'])
+        return Manufacturer(record['name'], record['country'], record['id'])
 
 def update(manufacturer):
     '''

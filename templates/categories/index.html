@@ -3,10 +3,16 @@
     Stockman: {{ page }}
 {% endblock title %}
 {% block content %}
-    <h1>Products By Category</h1>
-    <ul class="big-list">
-        {% for category in categories %}
-            <div class="list-object"><li><a href="/categories/{{category.id}}">{{ category.name }}</a></li></div>
-        {% endfor %}
-    </ul>
+    <h1>Product Categories</h1>
+    {% if categories|length == 0 %}
+        No product categories are currently recorded in the database.
+        <br><br>
+        <a href="/categories/add"><button>Add category</button></a>
+    {% else %}
+        <ul class="big-list">
+            {% for category in categories %}
+                <div class="list-object"><li><a href="/categories/{{category.id}}">{{ category.name }}</a></li></div>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock content %}

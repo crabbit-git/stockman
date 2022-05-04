@@ -34,9 +34,9 @@ def select(id):
     query = run_sql("SELECT * FROM categories WHERE id = %s", [id])
     if len(query) == 1:
         record = query[0]
-    return Category(
-        record['name'],
-        record['id']
+        return Category(
+            record['name'],
+            record['id']
     )
 
 def update(category):

@@ -40,11 +40,9 @@ def select_all(filter = None):
     If passed a Manufacturer object, it returns only their products,
     and if passed a Category object, it returns products from that category.
     '''
-    sort = "manufacturer_id, id"
+    sort = "category_id, manufacturer_id, id"
     values = None
-    if filter == None:
-        condition = ""
-    elif filter == "in stock":
+    if filter == "in stock":
         condition = "WHERE quantity > 0"
     elif filter == "out of stock":
         condition = "WHERE quantity = 0"
@@ -54,9 +52,10 @@ def select_all(filter = None):
         values = [filter.id]
     elif type(filter) is Category:
         condition = "WHERE category_id = %s"
+        sort = "manufacturer_id, id"
         values = [filter.id]
     else:
-        return []
+        condition = ""
     sql = f"SELECT * FROM products {condition} ORDER BY {sort}"
     return [
         Product(
@@ -81,15 +80,15 @@ def select(id):
     query = run_sql("SELECT * FROM products WHERE id = %s", [id])
     if len(query) == 1:
         record = query[0]
-    return Product(
-        record['name'],
-        category_repository.select(record['category_id']),
-        record['description'],
-        record['quantity'],
-        record['cost'],
-        record['price'],
-        manufacturer_repository.select(record['manufacturer_id']),
-        record['id']
+        return Product(
+            record['name'],
+            category_repository.select(record['category_id']),
+            record['description'],
+            record['quantity'],
+            record['cost'],
+            record['price'],
+            manufacturer_repository.select(record['manufacturer_id']),
+            record['id']
     )
 
 def count(id, quantity):

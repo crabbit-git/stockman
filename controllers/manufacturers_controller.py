@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from models.manufacturer import Manufacturer
 
 from repositories import manufacturer_repository, product_repository
@@ -40,6 +40,8 @@ def construct_manufacturer():
 @manufacturers_blueprint.route("/manufacturers/<id>", methods=['GET'])
 def manufacturer_detail(id):
     selected_manufacturer = manufacturer_repository.select(id)
+    if selected_manufacturer is None:
+        return redirect("/")
     return render_template(
         "manufacturers/detail.html",
         manufacturer = selected_manufacturer,

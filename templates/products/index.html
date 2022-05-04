@@ -7,7 +7,9 @@
         <h1>{{ page }}</h1>
     {% endblock list_header %}
     {% if products|length == 0 %}
-        Nothing to display
+        No products found.
+        <br><br>
+        <a href="/products/add"><button>Add product</button></a>
     {% else %}
         <table>
             <tr>

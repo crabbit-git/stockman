@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from models.category import Category
 
 from repositories import category_repository, product_repository
@@ -39,6 +39,8 @@ def construct_category():
 @categories_blueprint.route("/categories/<id>", methods=['GET'])
 def category_detail(id):
     selected_category = category_repository.select(id)
+    if selected_category is None:
+        return redirect("/")
     return render_template(
         "categories/detail.html",
         category = selected_category,

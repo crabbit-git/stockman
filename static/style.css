@@ -21,6 +21,7 @@ a:hover {
 main {
     text-align: center;
     flex: 1 0 auto;
+    padding: 0 4%;
 }
 
 ul {
@@ -82,7 +83,6 @@ h1 {
 }
   .navbar a:hover {
     color: green;
-    font-weight: 600;
 }
 
 footer {

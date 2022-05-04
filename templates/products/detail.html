@@ -15,23 +15,23 @@
         <b>OUT OF STOCK</b>
         <form action="/products/{{product.id}}/count" method="post">
             <input type="number" id="quantity" name="quantity" value="{{product.quantity}}" min = 0 max="999" required />
-            <button>Update quantity</button>
+            <button class="update">Update quantity</button>
         </form>
         {% elif product.quantity < 4 %}
         <b>LOW STOCK</b>
         <form action="/products/{{product.id}}/count" method="post">
             <input type="number" id="quantity" name="quantity" value="{{product.quantity}}" min = 0 max="999" required />
-            <button>Update quantity</button>
+            <button class="update">Update quantity</button>
         </form>
         {% else %}
             <form action="/products/{{product.id}}/count" method="post">
                 <input type="number" id="quantity" name="quantity" value="{{product.quantity}}" min = 0 max="999" required />
-                <button>Update quantity</button>
+                <button class="update">Update quantity</button>
             </form>
         {% endif %}
     </p>
-    <p><a href="/products/{{product.id}}/edit"><button>Edit product details</button></a></p>
+    <p><a href="/products/{{product.id}}/edit"><button class="edit">Edit product details</button></a></p>
     <form class="deletion_form" action="/products/{{product.id}}/delete" method="post">
-        <button>Remove product from database</button>
+        <button class="delete">Remove product from database</button>
     </form>
 {% endblock content %}

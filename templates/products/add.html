@@ -5,43 +5,46 @@
 {% block content %}
     <h1>Adding new product</h1>
     <form action="/products" method="post">
-        <div>
-            <label for="category">Category (<a href="/categories/add">add</a> if unlisted):</label>
-            <select id="category" name="category_id" placeholder="Category" required>
-                <option value="" disabled selected>Select category</option>
-            {% for category in categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-            </select>
-        </div>
-        <div>
-            <label for="manufacturer">Manufacturer (<a href="/manufacturers/add">add</a> if unlisted):</label>
-            <select id="manufacturer" name="manufacturer_id" placeholder="Manufacturer" required>
-                <option value="" disabled selected>Select manufacturer</option>
-            {% for manufacturer in manufacturers %}
-                <option value="{{ manufacturer.id }}">{{ manufacturer.name }} ({{ manufacturer.country }})</option>
-            {% endfor %}
-            </select>
+        <div class="narrow-input">
+            <div>
+                <label for="category">Category (<a href="/categories/add">add</a> if unlisted):</label>
+                <select id="category" name="category_id" placeholder="Category" required>
+                    <option value="" disabled selected>Select category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="manufacturer">Manufacturer (<a href="/manufacturers/add">add</a> if unlisted):</label>
+                <select id="manufacturer" name="manufacturer_id" placeholder="Manufacturer" required>
+                    <option value="" disabled selected>Select manufacturer</option>
+                {% for manufacturer in manufacturers %}
+                    <option value="{{ manufacturer.id }}">{{ manufacturer.name }} ({{ manufacturer.country }})</option>
+                {% endfor %}
+                </select>
+            </div>
         </div>
         <div>
             <label for="name">Product:</label>
-            <input type="text" id="name" name="name" placeholder="Product name" size="50" required autofocus />
+            <input type="text" id="name" name="name" placeholder="Product name" required autofocus />
         </div>
         <div>
             <label for="description">Description:</label>
             <textarea rows="5" cols="50" id="description" name="description" placeholder="Product description (255 characters max)" maxlength="255" required></textarea>
         </div>
-        <div>
-            <label for="cost">Supply cost:</label>
-            <input type="number" id="cost" name="cost" placeholder="##.##" step="0.01" required />
+        <div class="narrow-input">
+            <div>
+                <label for="cost">Supply cost:</label>
+                <input type="number" id="cost" name="cost" placeholder="#.##" min="0" step="0.01" required />
+            </div>
+            <div><label for="price">Sale price:</label>
+                <input type="number" id="price" name="price" placeholder="#.##" min="0" step="0.01" required />
+            </div>
         </div>
         <div>
-            <label for="price">Sale price:</label>
-            <input type="number" id="price" name="price" placeholder="##.##" step="0.01" required />
-        </div>
-        <div>
-            <label for="quantity">Quantity in stock:</label>
-            <input type="number" id="quantitiy" name="quantity" value="0" required />
+            <label for="quantity">Stock:</label>
+            <input type="number" id="quantitiy" name="quantity" value="0" min="0" required />
         </div>
         <button type="submit">Add product to database</button>
     </form>

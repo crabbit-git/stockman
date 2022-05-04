@@ -4,9 +4,9 @@
 {% endblock title %}
 {% block content %}
     <h1>All {{ category.name }}</h1>
-    <p><a href="/categories/{{category.id}}/edit"><button>Rename category</button></a></p>
+    <p><a href="/categories/{{category.id}}/edit"><button class="edit">Rename category</button></a></p>
     <form class="deletion_form" action="/categories/{{category.id}}/delete" method="post">
-        <button>Remove category from database</button>
+        <button class="delete">Remove category from database</button>
     </form>
     <h3>All products in this category:</h3>
     {% if products|length == 0 %}

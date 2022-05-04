@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <title>
         {% block title %}
         {% endblock title %}
@@ -12,12 +14,12 @@
 </head>
 <body>
     <header>
+        <a href="/"><h1>Stockman</h1></a>
         <nav class="navbar">
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/manufacturers">Manufacturers</a> (<a href="/manufacturers/add">add</a>)</li>
-                <li><a href="/categories">Product Categories</a> (<a href="/categories/add">add</a>)</li>
-                <li><a href="/products">All Products</a> (<a href="/products/add">add</a>)</li>
+                <li><a href="/manufacturers">Manufacturers</a> (<a href="/manufacturers/add">+</a>)</li>
+                <li><a href="/categories">Product Categories</a> (<a href="/categories/add">+</a>)</li>
+                <li><a href="/products">All Products</a> (<a href="/products/add">+</a>)</li>
                 <li><a href="/products/in-stock">In Stock</a></li>
                 <li><a href="/products/out-of-stock">Out of Stock</a></li>
             </ul>

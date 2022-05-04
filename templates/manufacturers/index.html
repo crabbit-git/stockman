@@ -6,7 +6,7 @@
     <h1>Manufacturer list</h1>
     <ul class="big-list">
         {% for manufacturer in manufacturers %}
-            <div class="list-object"><li><a href="/manufacturers/{{manufacturer.id}}">{{ manufacturer.name }}</a> ({{ manufacturer.country }})</li></div>
+            <div class="list-object"><li><a href="/manufacturers/{{manufacturer.id}}">{{ manufacturer.name }}</a></li></div>
         {% endfor %}
     </ul>
 {% endblock content %}

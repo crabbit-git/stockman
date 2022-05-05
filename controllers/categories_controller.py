@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request
 from models.category import Category
 
 from repositories import category_repository, product_repository
@@ -40,7 +40,7 @@ def construct_category():
 def category_detail(id):
     selected_category = category_repository.select(id)
     if selected_category is None:
-        return redirect("/")
+        return render_template("whoops.html")
     return render_template(
         "categories/detail.html",
         category = selected_category,
@@ -50,10 +50,13 @@ def category_detail(id):
 # Go to form to edit category:
 @categories_blueprint.route("/categories/<id>/edit", methods=['GET'])
 def goto_edit_category(id):
+    selected_category = category_repository.select(id)
+    if selected_category is None:
+        return render_template("whoops.html")
     return render_template(
         "categories/edit.html",
         page = "Editing",
-        category = category_repository.select(id)
+        category = selected_category
     )
 
 # Overwrite existing category with new version with same table ID:

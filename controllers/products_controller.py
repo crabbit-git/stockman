@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request
 from models.product import Product
 
 from repositories import product_repository, manufacturer_repository, category_repository
@@ -66,7 +66,7 @@ def construct_product():
 def product_detail(id):
     selected_product = product_repository.select(id)
     if selected_product is None:
-        return redirect("/")
+        return render_template("whoops.html")
     return render_template(
         "products/detail.html",
         product = selected_product
@@ -75,10 +75,13 @@ def product_detail(id):
 # Go to form to edit product:
 @products_blueprint.route("/products/<id>/edit", methods=['GET'])
 def goto_edit_product(id):
+    selected_product = product_repository.select(id)
+    if selected_product is None:
+        return render_template("whoops.html")
     return render_template(
         "products/edit.html",
         page = "Editing",
-        product = product_repository.select(id),
+        product = selected_product,
         manufacturers = manufacturer_repository.select_all(),
         categories = category_repository.select_all()
     )

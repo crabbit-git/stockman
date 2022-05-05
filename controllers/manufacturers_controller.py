@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request
 from models.manufacturer import Manufacturer
 
 from repositories import manufacturer_repository, product_repository
@@ -41,7 +41,7 @@ def construct_manufacturer():
 def manufacturer_detail(id):
     selected_manufacturer = manufacturer_repository.select(id)
     if selected_manufacturer is None:
-        return redirect("/")
+        return render_template("whoops.html")
     return render_template(
         "manufacturers/detail.html",
         manufacturer = selected_manufacturer,
@@ -51,10 +51,13 @@ def manufacturer_detail(id):
 # Go to form to edit manufacturer:
 @manufacturers_blueprint.route("/manufacturers/<id>/edit", methods=['GET'])
 def goto_edit_manufacturer(id):
+    selected_manufacturer = manufacturer_repository.select(id)
+    if selected_manufacturer is None:
+        return render_template("whoops.html")
     return render_template(
         "manufacturers/edit.html",
         page = "Editing",
-        manufacturer = manufacturer_repository.select(id)
+        manufacturer = selected_manufacturer
     )
 
 # Overwrite existing manufacturer with new version with same table ID:

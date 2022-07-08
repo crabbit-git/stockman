@@ -22,11 +22,13 @@ The full version of the brief is in `task.md` for the curious.
 
 ## How do I use it, though?
 
-The simplest way is probably to access it via the [Flask](https://palletsprojects.com/p/flask/) web framework, which will let you map a port on your local machine ("localhost", usually IP 127.0.0.1, the port by default being 5000) on which you can access the contents of the repo. There is a `.flaskenv` file in the root to configure the runtime environment for Flask, but if you know what you're doing and would rather override that very rudimentary configuration, go for it. In any case, install Flask if you don't already have it installed.
+First off, install [Python 3](https://www.python.org/) if you don't have it already. I built Stockman on macOS, so the way I went about this was through [Homebrew](https://brew.sh/): `brew install python`.
 
-You're also going to need something that can manage SQL databases; the one I used was [PostgreSQL](https://www.postgresql.org/), so that'd be a solid choice. It's also the only one I'm going to provide basic instructions for, so bear that in mind.
+With Python installed, you'll access Stockman via the [Flask](https://palletsprojects.com/p/flask/) web framework, which will let you map a port on your local machine ("localhost", usually IP 127.0.0.1, the port by default being 5000) on which you can access the contents of the repo. There is a `.flaskenv` file in the root to configure the runtime environment for Flask, but if you know what you're doing and would rather override that very rudimentary configuration, go for it. In any case, install Flask if you don't already have it installed. This can be done with Python's package manager, [pip](https://pip.pypa.io/en/stable/), e.g. `pip3 install flask`.
 
-To allow the Python code to interface with PSQL, you're also going to need to install [Psycopg](https://www.psycopg.org/). You won't be directly calling it once it's installed, but the code requires it to work.
+You're also going to need something that can manage SQL databases; the one I used was [PostgreSQL](https://www.postgresql.org/), so that'd be a solid choice. It's also the only one I'm going to provide basic instructions for, so bear that in mind. Homebrew can do this with `brew install postgresql`.
+
+To allow the Python code to interface with PSQL, you're also going to need to install [Psycopg](https://www.psycopg.org/). You won't be directly calling it once it's installed, but the code requires it to work. Like Flask, Psycopg can be installed with pip, e.g. `pip3 install psycopg2`.
 
 Obviously, you're going to need the actual contents of this repository, so either clone the repository to some directory on your local machine (e.g. either with [Git](https://git-scm.com/) using `git clone`) or access it from the GitHub website and click on `Code` then `Download ZIP` and unzip the contents to a directory of your choosing.
 
